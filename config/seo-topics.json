@@ -1,0 +1,122 @@
+[
+  {
+    "slug": "codex-tutorial",
+    "primaryKeyword": "Codex 教程",
+    "secondaryKeywords": ["Codex 中文教程", "Codex 新手教程", "Codex 使用教程", "Codex 官方教程"],
+    "intent": "tutorial",
+    "priority": "P0",
+    "minSources": 5,
+    "maxSources": 10,
+    "pinnedSourceIds": ["start:01-what-is-codex", "start:06-first-task", "start:07-task-design", "start:08-task-execution", "tutorial:getting-started"],
+    "matchTerms": ["Codex 教程", "Codex", "新手", "入门", "第一个任务"],
+    "requiredEvidenceGroups": []
+  },
+  {
+    "slug": "codex-app",
+    "primaryKeyword": "Codex App",
+    "secondaryKeywords": ["Codex 桌面版", "Codex App 下载", "Codex App 安装", "Codex macOS", "Codex Windows"],
+    "intent": "product",
+    "priority": "P0",
+    "minSources": 4,
+    "maxSources": 8,
+    "pinnedSourceIds": ["start:02-app-installation", "start:05-app-overview", "start:06-first-task", "start:09-mobile-control"],
+    "matchTerms": ["Codex App", "桌面 App", "桌面版", "客户端", "macOS", "Windows"],
+    "requiredEvidenceGroups": []
+  },
+  {
+    "slug": "codex-cli",
+    "primaryKeyword": "Codex CLI 教程",
+    "secondaryKeywords": ["Codex CLI 安装", "Codex CLI 命令", "Codex CLI 登录", "Codex CLI 配置"],
+    "intent": "tutorial",
+    "priority": "P0",
+    "minSources": 3,
+    "maxSources": 8,
+    "pinnedSourceIds": ["start:10-cli-installation", "start:11-cli-first-run", "start:12-cli-options"],
+    "matchTerms": ["Codex CLI", "CLI", "命令行", "安装 CLI"],
+    "requiredEvidenceGroups": []
+  },
+  {
+    "slug": "codex-troubleshooting",
+    "primaryKeyword": "Codex 问题排查",
+    "secondaryKeywords": ["Codex 网络连接失败", "Codex 权限设置", "Codex 命令被拦", "Codex 任务跑偏", "Codex 结果验证"],
+    "intent": "troubleshooting",
+    "priority": "P0",
+    "minSources": 3,
+    "maxSources": 8,
+    "pinnedSourceIds": ["case:codex-permission-and-network-blocked", "case:codex-task-keeps-drifting", "case:codex-finished-but-not-verified"],
+    "matchTerms": ["问题排查", "网络", "权限", "跑偏", "验证", "失败"],
+    "requiredEvidenceGroups": []
+  },
+  {
+    "slug": "codex-skills",
+    "primaryKeyword": "Codex Skills 教程",
+    "secondaryKeywords": ["Codex Skill 安装", "SKILL.md", "Codex Skill 制作", "Codex Skill 使用方法"],
+    "intent": "tutorial",
+    "priority": "P0",
+    "minSources": 3,
+    "maxSources": 8,
+    "pinnedSourceIds": ["case:01-ppt-skill-walkthrough", "case:reusable-review-skill", "start:05-app-overview"],
+    "matchTerms": ["Codex Skills", "Skill", "SKILL.md", "技能", "插件"],
+    "requiredEvidenceGroups": []
+  },
+  {
+    "slug": "codex-mcp",
+    "primaryKeyword": "Codex MCP",
+    "secondaryKeywords": ["Codex MCP 配置", "MCP Server", "Playwright MCP", "Figma MCP", "Notion MCP"],
+    "intent": "tutorial",
+    "priority": "P1",
+    "minSources": 3,
+    "maxSources": 8,
+    "pinnedSourceIds": ["case:02-drawio-mcp", "case:03-playwright-mcp", "case:08-figma-mcp-codex", "case:09-notion-mcp-codex"],
+    "matchTerms": ["Codex MCP", "MCP", "MCP Server", "Playwright", "Figma", "Notion"],
+    "requiredEvidenceGroups": []
+  },
+  {
+    "slug": "agents-md",
+    "primaryKeyword": "AGENTS.md",
+    "secondaryKeywords": ["AGENTS.md 怎么写", "AGENTS.md 示例", "Codex 项目指令", "AGENTS.md 和 Skill 区别"],
+    "intent": "tutorial",
+    "priority": "P1",
+    "minSources": 3,
+    "maxSources": 7,
+    "pinnedSourceIds": ["update:agents-md-practical-boundaries", "case:07-llm-wiki-codex", "start:07-task-design"],
+    "matchTerms": ["AGENTS.md", "项目指令", "长期规则", "上下文", "任务边界"],
+    "requiredEvidenceGroups": []
+  },
+  {
+    "slug": "codex-workflows",
+    "primaryKeyword": "Codex 工作流",
+    "secondaryKeywords": ["Codex CI 自动修复", "Codex 代码审查", "Codex GitHub Actions", "Codex 自动化"],
+    "intent": "workflow",
+    "priority": "P1",
+    "minSources": 3,
+    "maxSources": 8,
+    "pinnedSourceIds": ["case:13-github-actions-ci-fix", "case:diagnose-ci-failure", "update:ci-fix-verification-loop", "update:pr-chat-inline-editing"],
+    "matchTerms": ["Codex 工作流", "CI", "GitHub Actions", "代码审查", "自动化", "PR"],
+    "requiredEvidenceGroups": []
+  },
+  {
+    "slug": "codex-api-config",
+    "primaryKeyword": "Codex 第三方 API",
+    "secondaryKeywords": ["Codex base_url", "Codex API Key", "Codex 模型配置", "Codex config.toml"],
+    "intent": "configuration",
+    "priority": "P1",
+    "minSources": 3,
+    "maxSources": 7,
+    "pinnedSourceIds": ["start:04-third-party-api", "start:12-cli-options", "start:01-what-is-codex"],
+    "matchTerms": ["第三方 API", "base_url", "API Key", "config.toml", "模型配置"],
+    "requiredEvidenceGroups": []
+  },
+  {
+    "slug": "codex-vs-claude-code",
+    "primaryKeyword": "Codex vs Claude Code",
+    "secondaryKeywords": ["Claude Code 替代品", "CLI AI 编程助手", "AI Coding Agent 对比"],
+    "intent": "comparison",
+    "priority": "P2",
+    "minSources": 3,
+    "maxSources": 8,
+    "pinnedSourceIds": [],
+    "matchTerms": ["Codex", "Claude Code", "AI Coding Agent", "CLI AI"],
+    "requiredEvidenceGroups": [["Codex"], ["Claude Code"]]
+  }
+]

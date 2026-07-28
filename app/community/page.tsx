@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Check, MessagesSquare, ShieldCheck, Sparkles } from "lucide-react";
+import { CommunityAttribution } from "@/components/community-attribution";
 import { CommunityLink } from "@/components/community-link";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { getSeoTopic } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "加入 Codex 付费社群",
@@ -17,18 +19,32 @@ const values = [
   { icon: ShieldCheck, title: "隐私优先", text: "群聊不会自动公开，案例发布前完成授权和脱敏。" },
 ];
 
-export default function CommunityPage() {
+type Props = { searchParams: Promise<{ from?: string | string[] }> };
+
+export default async function CommunityPage({ searchParams }: Props) {
   const configured = Boolean(process.env.NEXT_PUBLIC_COMMUNITY_JOIN_URL);
+  const rawSource = (await searchParams).from;
+  const source = Array.isArray(rawSource) ? rawSource[0] : rawSource;
+  const slug = source?.match(/^topic:([a-z0-9]+(?:-[a-z0-9]+)*)$/)?.[1];
+  const topic = slug ? getSeoTopic(slug) : undefined;
+  const seoAttribution = topic
+    ? {
+        topic_slug: topic.slug,
+        primary_keyword: topic.primaryKeyword,
+        intent: topic.intent,
+      }
+    : undefined;
 
   return (
     <>
       <SiteHeader />
+      <CommunityAttribution attribution={seoAttribution} />
       <main className="community-page">
         <section className="community-hero shell-narrow">
           <span className="eyebrow">CODEX COMMUNITY</span>
           <h1>和真正使用 Codex 的人一起进步</h1>
           <p>这里讨论具体任务、失败过程和验证结果。没有公开发帖压力，也不把群聊直接变成内容。</p>
-          <CommunityLink className="primary-button" />
+          <CommunityLink className="primary-button" seoAttribution={seoAttribution} />
         </section>
 
         <section className="community-values shell">
@@ -65,7 +81,9 @@ export default function CommunityPage() {
               <span>使用微信扫描二维码添加好友，通过后邀请你加入 Codex 实践社群。</span>
             </div>
           </div>
-          {configured ? <CommunityLink className="primary-button" /> : null}
+          {configured ? (
+            <CommunityLink className="primary-button" seoAttribution={seoAttribution} />
+          ) : null}
         </section>
       </main>
       <SiteFooter />

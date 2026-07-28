@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { cases, industryInsights, startArticles, updates } from "@/lib/content";
+import { visibleSeoTopics } from "@/lib/seo-topics";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
@@ -13,6 +14,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/community",
     "/community/updates",
   ];
+  const topics = visibleSeoTopics();
+  if (topics.length) staticRoutes.push("/topics");
 
   return [
     ...staticRoutes.map((route) => ({
@@ -38,6 +41,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(item.date),
       changeFrequency: "monthly" as const,
       priority: 0.7,
+    })),
+    ...topics.map((topic) => ({
+      url: `${base}/topics/${topic.slug}`,
+      lastModified: new Date(topic.reviewedAt || topic.generatedAt),
+      changeFrequency: "monthly" as const,
+      priority: topic.priority === "P0" ? 0.9 : 0.8,
     })),
     ...industryInsights.map((item) => ({
       url: `${base}/industry-insights/${item.slug}`,

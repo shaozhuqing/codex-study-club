@@ -2,8 +2,10 @@ import Link from "next/link";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import { BrandMark } from "@/components/brand-mark";
 import { GithubMark } from "@/components/github-mark";
+import { visibleSeoTopics } from "@/lib/seo-topics";
 
 export function SiteHeader() {
+  const hasTopics = visibleSeoTopics().length > 0;
   return (
     <header className="site-header">
       <div className="shell header-inner">
@@ -38,6 +40,7 @@ export function SiteHeader() {
             <span>开源赞助</span>
           </Link>
           <Link className="insights-nav" href="/industry-insights">行业解读</Link>
+          {hasTopics ? <Link className="topics-nav" href="/topics">学习专题</Link> : null}
           <Link href="/cases">实战案例</Link>
           <Link href="/community/updates">社群动态</Link>
           <Link className="join-nav" href="/community">

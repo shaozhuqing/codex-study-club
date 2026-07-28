@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getCaseCategoryLabel } from "@/lib/case-categories";
 import { cases, getCase } from "@/lib/content";
+import { visibleSeoTopicForSource } from "@/lib/seo-topics";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -28,6 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function CaseDetailPage({ params }: Props) {
   const item = getCase((await params).slug);
   if (!item) notFound();
+  const owningTopic = visibleSeoTopicForSource(`case:${item.slug}`);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -54,6 +56,12 @@ export default async function CaseDetailPage({ params }: Props) {
           </div>
           <h1>{item.title}</h1>
           <p className="article-lead">{item.summary}</p>
+          {owningTopic ? (
+            <p className="article-topic-link">
+              <span>所属专题</span>
+              <Link href={`/topics/${owningTopic.slug}`}>{owningTopic.title}</Link>
+            </p>
+          ) : null}
           <MarkdownContent content={item.markdown} />
         </article>
       </main>

@@ -5,6 +5,7 @@ import { MarkdownContent } from "@/components/markdown-content";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getStartArticle, startArticles } from "@/lib/content";
+import { visibleSeoTopicForSource } from "@/lib/seo-topics";
 import { notFound } from "next/navigation";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -26,6 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function StartArticlePage({ params }: Props) {
   const article = getStartArticle((await params).slug);
   if (!article) notFound();
+  const owningTopic = visibleSeoTopicForSource(`start:${article.slug}`);
 
   const index = startArticles.findIndex((item) => item.slug === article.slug);
   const previous = index > 0 ? startArticles[index - 1] : undefined;
@@ -89,6 +91,12 @@ export default async function StartArticlePage({ params }: Props) {
             </div>
             <h1>{article.title}</h1>
             <p className="article-lead">{article.description}</p>
+            {owningTopic ? (
+              <p className="article-topic-link">
+                <span>所属专题</span>
+                <Link href={`/topics/${owningTopic.slug}`}>{owningTopic.title}</Link>
+              </p>
+            ) : null}
             <MarkdownContent content={article.markdown} />
             <p className="start-article-credit">
               本文基于 CodexGuide 的 MIT 授权内容收录，原作者 canghe。

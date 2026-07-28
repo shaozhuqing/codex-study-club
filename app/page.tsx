@@ -9,8 +9,10 @@ import { SiteHeader } from "@/components/site-header";
 import { UpdateList } from "@/components/update-list";
 import { caseCategories, getCaseCategory } from "@/lib/case-categories";
 import { cases, updates } from "@/lib/content";
+import { visibleSeoTopics } from "@/lib/seo-topics";
 
 export default function Home() {
+  const topics = visibleSeoTopics().slice(0, 3);
   const featuredSlugs = [
     "codex-task-keeps-drifting",
     "codex-permission-and-network-blocked",
@@ -89,6 +91,26 @@ export default function Home() {
             </nav>
           </div>
         </section>
+
+        {topics.length ? (
+          <section className="home-topics-band" aria-labelledby="home-topics-title">
+            <div className="shell home-topics-inner">
+              <div>
+                <span className="eyebrow">LEARNING PATHS</span>
+                <h2 id="home-topics-title">按目标深入学习</h2>
+              </div>
+              <nav aria-label="学习专题">
+                {topics.map((topic) => (
+                  <Link href={`/topics/${topic.slug}`} key={topic.slug}>
+                    <span>{topic.primaryKeyword}</span>
+                    <strong>{topic.title}</strong>
+                    <ArrowRight aria-hidden="true" size={16} />
+                  </Link>
+                ))}
+              </nav>
+            </div>
+          </section>
+        ) : null}
 
         <section className="section section-cases" id="cases">
           <div className="shell">

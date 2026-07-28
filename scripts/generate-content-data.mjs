@@ -164,6 +164,40 @@ function readAssistantKnowledge() {
     .sort((a, b) => a.slug.localeCompare(b.slug));
 }
 
+function readSeoTopics() {
+  const priorityRank = { P0: 0, P1: 1, P2: 2 };
+  return listMarkdownFiles(path.join(contentRoot, "seo"))
+    .map((filePath) => {
+      const parsed = parseMarkdown(filePath);
+      const slug = String(parsed.data.slug || path.basename(filePath, ".md"));
+      if (slug !== path.basename(filePath, ".md")) {
+        throw new Error(`SEO filename/slug mismatch: ${path.relative(root, filePath)}`);
+      }
+      return {
+        slug,
+        title: parsed.title,
+        description: String(parsed.data.description || ""),
+        primaryKeyword: String(parsed.data.primaryKeyword || ""),
+        secondaryKeywords: Array.isArray(parsed.data.secondaryKeywords)
+          ? parsed.data.secondaryKeywords.map(String)
+          : [],
+        intent: String(parsed.data.intent || ""),
+        priority: String(parsed.data.priority || "P2"),
+        sourceIds: Array.isArray(parsed.data.sourceIds) ? parsed.data.sourceIds.map(String) : [],
+        draft: parsed.data.draft !== false,
+        generatedAt: String(parsed.data.generatedAt || ""),
+        reviewedAt: parsed.data.reviewedAt ? String(parsed.data.reviewedAt) : undefined,
+        contentHash: String(parsed.data.contentHash || ""),
+        markdown: parsed.markdown,
+      };
+    })
+    .sort(
+      (a, b) =>
+        (priorityRank[a.priority] ?? 99) - (priorityRank[b.priority] ?? 99) ||
+        a.slug.localeCompare(b.slug),
+    );
+}
+
 function readIndustryInsights() {
   return listHtmlFiles(contentRoot)
     .map((filePath) => {
@@ -186,6 +220,7 @@ const generated = {
   startArticles: readStartArticles(),
   themes: readThemes(),
   knowledge: readAssistantKnowledge(),
+  seoTopics: readSeoTopics(),
   industryInsights: readIndustryInsights(),
 };
 

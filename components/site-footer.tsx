@@ -2,8 +2,10 @@ import Link from "next/link";
 import { Layers3 } from "lucide-react";
 import { BrandMark } from "@/components/brand-mark";
 import { GithubMark } from "@/components/github-mark";
+import { visibleSeoTopics } from "@/lib/seo-topics";
 
 export function SiteFooter() {
+  const hasTopics = visibleSeoTopics().length > 0;
   return (
     <footer className="site-footer">
       <div className="shell footer-inner">
@@ -17,6 +19,7 @@ export function SiteFooter() {
         <nav className="footer-links" aria-label="页脚导航">
           <Link href="/agent-awards">开源赞助</Link>
           <Link href="/industry-insights">行业解读</Link>
+          {hasTopics ? <Link href="/topics">学习专题</Link> : null}
           <Link href="/cases">实战案例</Link>
           <Link href="/community/updates">社群动态</Link>
           <span className="footer-external-links">

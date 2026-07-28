@@ -15,6 +15,7 @@ content/
 │   ├── knowledge/         # 知识与协作
 │   └── tools-devices/     # 工具与设备
 ├── community-updates/     # 社群动态
+├── seo/                   # 审核后发布的 SEO 专题草稿
 ├── themes/                # Codex 桌面主题
 └── tutorials/             # 系统教程
 ```
@@ -94,6 +95,37 @@ sources:
 - 两种模式都会返回对应的站内资料链接。
 
 不需要为案例、教程或社群动态额外建立索引记录。新增 Markdown 后，构建或重启服务即可进入资料库。
+
+## SEO 专题格式与审核
+
+`seo/` 由 `npm run seo:generate` 显式生成，不会在构建期间调用模型，也不会进入首页对话助手的知识库。专题正文不写 H1，页面组件负责输出唯一 H1。
+
+```yaml
+---
+title: "Codex CLI 中文教程：安装、配置与常用工作流"
+description: "面向中文开发者的 Codex CLI 学习路径。"
+slug: "codex-cli"
+primaryKeyword: "Codex CLI 教程"
+secondaryKeywords:
+  - "Codex CLI 安装"
+intent: "tutorial"
+priority: "P0"
+sourceIds:
+  - "start:10-cli-installation"
+draft: true
+generatedAt: "2026-07-27T00:00:00.000Z"
+contentHash: "sha256-value"
+---
+```
+
+审核发布流程：
+
+1. 运行 `npm run seo:plan` 和 `npm run seo:generate` 创建或更新草稿。
+2. 核对正文事实、来源链接、搜索意图和重复内容，再运行 `npm run seo:check`。
+3. 人工把 `draft` 改为 `false`，并添加 ISO 格式的 `reviewedAt`。
+4. 设置 `SEO_TOPICS_ENABLED=true` 后重新构建和部署。
+
+草稿可能被后续显式生成覆盖。脚本不会覆盖 `draft: false` 的已发布文件；来源变化时只报告 `published_stale`，等待人工处理。
 
 ## 写作规则
 

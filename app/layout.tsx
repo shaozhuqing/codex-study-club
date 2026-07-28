@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SiteAnalytics } from "@/components/site-analytics";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
@@ -38,12 +39,21 @@ export const metadata: Metadata = {
     description: "以对话为入口，用真实案例掌握 Codex。",
     images: ["/og-image.webp"],
   },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
+    other: process.env.BAIDU_SITE_VERIFICATION
+      ? { "baidu-site-verification": process.env.BAIDU_SITE_VERIFICATION }
+      : undefined,
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="zh-CN">
-      <body>{children}</body>
+      <body>
+        {children}
+        <SiteAnalytics />
+      </body>
     </html>
   );
 }

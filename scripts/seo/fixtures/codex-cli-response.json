@@ -1,0 +1,47 @@
+{
+  "title": "Codex CLI 中文教程：安装、首次运行与常用命令",
+  "description": "面向中文开发者的 Codex CLI 学习路径，覆盖安装、首次运行、常用命令、配置覆盖和结果验证。",
+  "directAnswer": {
+    "text": "学习 Codex CLI 可以按安装、首次运行、掌握常用命令和建立验证习惯四步进行。先确认 Node.js 与 npm 环境，再安装 CLI；首次运行时从低风险的小任务开始，最后使用命令输出和项目测试确认结果。",
+    "sourceIds": ["start:10-cli-installation", "start:11-cli-first-run"]
+  },
+  "sections": [
+    {
+      "heading": "先完成安装和版本检查",
+      "body": "安装前确认本机具备文档要求的运行环境，再使用教程中的命令安装 Codex CLI。安装完成后先运行版本检查，确保当前终端能够找到可执行文件；如果命令不可用，应先排查 PATH 和安装位置，而不是继续后面的任务。",
+      "sourceIds": ["start:10-cli-installation"]
+    },
+    {
+      "heading": "用一个可验证的小任务完成首次运行",
+      "body": "首次运行不要直接处理大范围重构。选择一个边界清楚、能够通过文件差异或测试命令验证的任务，先让 Codex 说明准备读取和修改的范围，再检查执行结果。这能同时验证登录、目录权限和基本交互是否正常。",
+      "sourceIds": ["start:11-cli-first-run"]
+    },
+    {
+      "heading": "按场景选择交互与非交互命令",
+      "body": "需要连续讨论和确认时使用交互式 CLI；用于脚本、CI 或批量任务时使用非交互执行方式。临时配置覆盖只应用于当前任务，长期配置应放在明确的配置文件中。无论使用哪种方式，都应保留可复现命令和验收条件。",
+      "sourceIds": ["start:12-cli-options"]
+    },
+    {
+      "heading": "把结果验证作为命令流程的一部分",
+      "body": "Codex 返回完成不等于交付可用。运行与任务最接近的测试、构建或只读检查，并查看实际差异中是否混入无关修改。失败时保留原始错误信息，再缩小问题范围继续处理。",
+      "sourceIds": ["start:11-cli-first-run", "start:12-cli-options"]
+    }
+  ],
+  "faq": [
+    {
+      "question": "Codex CLI 安装后找不到命令怎么办？",
+      "answer": "先重新打开终端并运行版本检查。如果仍然找不到命令，核对安装是否成功、npm 的全局安装目录是否进入 PATH，以及当前 shell 是否读取了正确的配置文件。",
+      "sourceIds": ["start:10-cli-installation"]
+    },
+    {
+      "question": "第一次使用 Codex CLI 适合做什么任务？",
+      "answer": "选择影响范围小、验收方式明确的任务，例如解释一个文件、修改一处文案或运行已有测试。避免把首次运行变成跨目录重构或生产环境操作。",
+      "sourceIds": ["start:11-cli-first-run"]
+    },
+    {
+      "question": "什么时候使用非交互命令？",
+      "answer": "当输入和输出结构稳定、任务需要放进脚本或 CI，并且已经定义好权限和验收命令时使用。仍需探索需求或频繁确认边界时，优先使用交互式 CLI。",
+      "sourceIds": ["start:12-cli-options"]
+    }
+  ]
+}

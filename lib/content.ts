@@ -75,6 +75,22 @@ export type IndustryInsight = {
   html: string;
 };
 
+export type SeoTopic = {
+  slug: string;
+  title: string;
+  description: string;
+  primaryKeyword: string;
+  secondaryKeywords: string[];
+  intent: string;
+  priority: "P0" | "P1" | "P2";
+  sourceIds: string[];
+  draft: boolean;
+  generatedAt: string;
+  reviewedAt?: string;
+  contentHash: string;
+  markdown: string;
+};
+
 type GeneratedContent = {
   cases: CaseStudy[];
   updates: CommunityUpdate[];
@@ -82,6 +98,7 @@ type GeneratedContent = {
   startArticles: StartArticle[];
   themes: ThemeDocument[];
   knowledge: AssistantKnowledge[];
+  seoTopics: SeoTopic[];
   industryInsights: IndustryInsight[];
 };
 
@@ -93,6 +110,7 @@ export const tutorials = content.tutorials;
 export const startArticles = content.startArticles;
 export const themes = content.themes;
 export const knowledge = content.knowledge;
+export const seoTopics = content.seoTopics;
 export const industryInsights = content.industryInsights;
 
 export function getCase(slug: string) {
@@ -113,6 +131,18 @@ export function getStartArticle(slug: string) {
 
 export function getTheme(slug: string) {
   return themes.find((item) => item.slug === slug);
+}
+
+export function getSeoTopic(slug: string) {
+  return seoTopics.find((item) => item.slug === slug);
+}
+
+export function publishedSeoTopics() {
+  return seoTopics.filter((item) => !item.draft && Boolean(item.reviewedAt));
+}
+
+export function findSeoTopicForSource(sourceId: string) {
+  return publishedSeoTopics().find((topic) => topic.sourceIds.includes(sourceId));
 }
 
 export function getIndustryInsight(slug: string) {
